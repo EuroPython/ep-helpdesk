@@ -6,3 +6,4 @@ simplejson
 six
 gunicorn==19.6.0
 pytz
+pip>=9.0.1
