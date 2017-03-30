@@ -741,12 +741,12 @@ def attachment_path(instance, filename):
     putting attachments in a folder off attachments for ticket/followup_id/.
     """
     import os
-    os.umask(0)
+    os.umask(0o022)
     path = 'helpdesk/attachments/%s/%s' % (instance.followup.ticket.ticket_for_url, instance.followup.id)
     att_path = os.path.join(settings.MEDIA_ROOT, path)
     if settings.DEFAULT_FILE_STORAGE == "django.core.files.storage.FileSystemStorage":
         if not os.path.exists(att_path):
-            os.makedirs(att_path, 0o777)
+            os.makedirs(att_path, 0o755)
     return os.path.join(path, filename)
 
 
