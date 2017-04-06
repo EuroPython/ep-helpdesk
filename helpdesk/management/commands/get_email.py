@@ -264,6 +264,8 @@ def decode_mail_headers(string):
 
 def ticket_from_message(message, queue, logger):
     # 'message' must be an RFC822 formatted message.
+    if six.PY2 and isinstance(message, unicode):
+        message = message.encode('utf-8')
     message = email.message_from_string(message)
     subject = message.get('subject', _('Created from e-mail'))
     subject = decode_mail_headers(decodeUnknown(message.get_charset(), subject))
