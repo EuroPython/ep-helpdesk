@@ -314,7 +314,7 @@ def ticket_from_message(message, queue, logger):
                 logger.debug("Discovered plain text MIME part")
             else:
                 files.append(
-                    SimpleUploadedFile(_("email_html_body.html"), encoding.smart_bytes(part.get_payload(decode=True)), 'text/html')
+                    SimpleUploadedFile(_("email_html_body.html"), encoding.smart_bytes(part.get_payload()), 'text/html')
                 )
                 logger.debug("Discovered HTML MIME part")
         else:
