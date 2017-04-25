@@ -308,13 +308,16 @@ def ticket_from_message(message, queue, logger):
 
         if part.get_content_maintype() == 'text' and name is None:
             if part.get_content_subtype() == 'plain':
-                body = EmailReplyParser.parse_reply(
-                    decodeUnknown(part.get_content_charset(), part.get_payload(decode=True))
-                )
+                reply = decodeUnknown(part.get_content_charset(),
+                                      part.get_payload(decode=True)
+                body = EmailReplyParser.parse_reply(reply)
+                if not body:
+                    # No reply found, so use the original text instead
+                    body = reply
                 logger.debug("Discovered plain text MIME part")
             else:
                 files.append(
-                    SimpleUploadedFile(_("email_html_body.html"), encoding.smart_bytes(part.get_payload()), 'text/html')
+                    SimpleUploadedFile(_("email_html_body.html"), encoding.smart_bytes(part.get_payload(decode=True)), 'text/html')
                 )
                 logger.debug("Discovered HTML MIME part")
         else:
