@@ -105,7 +105,7 @@ def send_templated_mail(template_name,
 
     subject_part = from_string(
         HELPDESK_EMAIL_SUBJECT_TEMPLATE % {
-            "subject": t.subject,
+            "subject": t.subject.replace('\r', ' ').replace('\n', ' '),
         }).render(context)
 
     if isinstance(recipients, str):
