@@ -292,6 +292,7 @@ def process_attachments(followup, attached_files):
                 'application/octet-stream',
                 size=attached.size,
             )
+            att.file.save(filename, attached, save=False)
             att.save()
 
             if attached.size < max_email_attachment_size:
