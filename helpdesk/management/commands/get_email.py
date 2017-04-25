@@ -314,14 +314,14 @@ def ticket_from_message(message, queue, logger):
                 logger.debug("Discovered plain text MIME part")
             else:
                 files.append(
-                    SimpleUploadedFile(_("email_html_body.html"), encoding.smart_bytes(part.get_payload()), 'text/html')
+                    SimpleUploadedFile(_("email_html_body.html"), encoding.smart_bytes(part.get_payload(decode=True)), 'text/html')
                 )
                 logger.debug("Discovered HTML MIME part")
         else:
             if not name:
                 ext = mimetypes.guess_extension(part.get_content_type())
                 name = "part-%i%s" % (counter, ext)
-            files.append(SimpleUploadedFile(name, encoding.smart_bytes(part.get_payload()), part.get_content_type()))
+            files.append(SimpleUploadedFile(name, encoding.smart_bytes(part.get_payload(decode=True)), part.get_content_type()))
             logger.debug("Found MIME attachment %s" % name)
 
         counter += 1
