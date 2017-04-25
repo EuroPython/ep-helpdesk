@@ -309,7 +309,7 @@ def ticket_from_message(message, queue, logger):
         if part.get_content_maintype() == 'text' and name is None:
             if part.get_content_subtype() == 'plain':
                 reply = decodeUnknown(part.get_content_charset(),
-                                      part.get_payload(decode=True)
+                                      part.get_payload(decode=True))
                 body = EmailReplyParser.parse_reply(reply)
                 if not body:
                     # No reply found, so use the original text instead
