@@ -255,6 +255,10 @@ def decodeUnknown(charset, string):
 
 
 def decode_mail_headers(string):
+    if not isinstance(string, unicode):
+        # Make sure we don't get any decode errors when fetching the
+        # the headers
+        string = unicode(string, 'utf-8', 'replace')
     decoded = email.header.decode_header(string)
     if six.PY2:
         return u' '.join([unicode(msg, charset or 'utf-8') for msg, charset in decoded])
