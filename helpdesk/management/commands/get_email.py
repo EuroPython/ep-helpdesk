@@ -245,7 +245,7 @@ def decodeUnknown(charset, string):
                 return string.decode('utf-8', 'ignore')
             except:
                 return string.decode('iso8859-1', 'ignore')
-        return unicode(string, charset)
+        return unicode(string, charset, errors='replace')
     elif six.PY3:
         if type(string) is not str:
             if not charset:
