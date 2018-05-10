@@ -1212,6 +1212,14 @@ class IgnoreEmail(models.Model):
         own_parts = self.email_address.split("@")
         email_parts = email.split("@")
 
+        # No @in email:
+        if (len(email_parts) == 1 and
+            own_parts[0] == "*" and own_parts[1] == "*"):
+            return True
+        else:
+            return False
+
+        # Other cases:
         if self.email_address == email or \
                 own_parts[0] == "*" and own_parts[1] == email_parts[1] or \
                 own_parts[1] == "*" and own_parts[0] == email_parts[0] or \
