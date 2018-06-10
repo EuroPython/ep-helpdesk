@@ -244,8 +244,11 @@ def decodeUnknown(charset, string):
             try:
                 return string.decode('utf-8', 'ignore')
             except:
-                return string.decode('iso8859-1', 'ignore')
-        return unicode(string, charset, errors='replace')
+                return string.decode('latin-1', 'ignore')
+        try:
+            return unicode(string, charset, errors='replace')
+        except LookupError:
+            return unicode(string, 'latin-1', errors='replace')
     elif six.PY3:
         if type(string) is not str:
             if not charset:
@@ -253,7 +256,10 @@ def decodeUnknown(charset, string):
                     return str(string, encoding='utf-8', errors='replace')
                 except:
                     return str(string, encoding='iso8859-1', errors='replace')
-            return str(string, encoding=charset, errors='replace')
+            try:
+                return str(string, encoding=charset, errors='replace')
+        except LookupError:
+            return str(string, 'latin-1', errors='replace')
         return string
 
 
