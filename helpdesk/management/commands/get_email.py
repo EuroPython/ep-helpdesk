@@ -258,8 +258,8 @@ def decodeUnknown(charset, string):
                     return str(string, encoding='iso8859-1', errors='replace')
             try:
                 return str(string, encoding=charset, errors='replace')
-        except LookupError:
-            return str(string, 'latin-1', errors='replace')
+            except LookupError:
+                return str(string, 'latin-1', errors='replace')
         return string
 
 
