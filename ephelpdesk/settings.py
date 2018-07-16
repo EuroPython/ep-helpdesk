@@ -28,6 +28,13 @@ ALLOWED_HOSTS = ['*']
 # Site ID setting
 SITE_ID = 1
 
+# Send traceback emails
+ADMINS = (
+    ('web-wg', 'web-wg@europython.eu'),
+)
+
+MANAGERS = ADMINS
+
 # Application definition
 
 INSTALLED_APPS = (
